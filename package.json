@@ -10,7 +10,7 @@
 		"Formatters"
 	],
 	"activationEvents": [
-		"onStartupFinished"
+		"onCommand:aquilon.organizeClasses"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -22,7 +22,7 @@
 		],
 		"keybindings": [
 			{
-				"command": "aquilon.sortTailwindClasses",
+				"command": "aquilon.organizeClasses",
 				"key": "ctrl+alt+t",
 				"mac": "shift+cmd+t",
 				"when": "editorFocus"
@@ -50,6 +50,17 @@
 						"default": true,
 						"description": "Control if classes not handled by Taiwind/WindiCSS should be placed first or last (true = first | false = last)",
 						"type": "boolean",
+						"scope": "window"
+					},
+					"aquilon.defaultSortOrder": {
+						"type": "array",
+						"default": [
+							"need",
+							"to",
+							"add",
+							"classes"
+						],
+						"description": "String array that indicates sorting order",
 						"scope": "window"
 					}
 				}
