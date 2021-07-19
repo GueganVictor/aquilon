@@ -12,7 +12,7 @@ const opt : Options = {
     indentLevel: 0
 };
 
-const regexSelector = /([^\s]+):\(?([^)]+|[^"'\s]+)[\)"']?/gm;
+const regexSelector = /([^\s]+):((?:[^()\s]+)|(?=\()[^)]+\))/gm;
 
 declare global {
     interface Array<T> {
@@ -38,10 +38,10 @@ export const sortAndFormat = (text: string, sortingArray: string[], options: Opt
         });
         formattedString += '\r\n' + ' '.repeat(options.indentLevel);
         if (options.useWindiCSSGrouping) {
-            formattedString += key + ':(' + selectorsArray[key].map(x => x.trim()).join(' ') + ')';
+            formattedString += key + ':(' + selectorsArray[key].map(x => x.trim()).join(' ').replace(/[()]/gm, '') + ')';
         } else {
 
-            formattedString += selectorsArray[key].map((x) => key + ':' + x).join(' ');
+            formattedString += selectorsArray[key].map((x) => key + ':' + x).join(' ').replace(/[()]/gm, '');
         }
     }
 
