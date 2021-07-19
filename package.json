@@ -10,7 +10,7 @@
 		"Formatters"
 	],
 	"activationEvents": [
-		"onStartupFinished"
+		"onCommand:aquilon.organizeClasses"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -22,7 +22,7 @@
 		],
 		"keybindings": [
 			{
-				"command": "aquilon.sortTailwindClasses",
+				"command": "aquilon.organizeClasses",
 				"key": "ctrl+alt+t",
 				"mac": "shift+cmd+t",
 				"when": "editorFocus"
@@ -35,7 +35,7 @@
 					"aquilon.classRegex": {
 						"type": "object",
 						"default": {
-							"html": "\\bclass\\s*=\\s*[\\\"\\']([\\._a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']"
+							"html": "\\bclass\\s*=\\s*[\\\"\\']([\\._a-zA-Z0-9\\s\\-\\:\\/()]+)[\\\"\\']"
 						},
 						"description": "Regex to find classes in the HTML",
 						"scope": "window"
@@ -46,10 +46,114 @@
 						"description": "Enable/Disable formatting on save",
 						"scope": "window"
 					},
-					"aquilon.placeCustomeClassesFirst": {
+					"aquilon.useWindiCSSGrouping": {
+						"type": "boolean",
 						"default": true,
+						"description": "Use WindiCSS parentheses grouping for selectors. ex : dark:(class-1 class-2) instead of dark:class-1 dark:class-2",
+						"scope": "window"
+					},
+					"aquilon.placeCustomClassesFirst": {
+						"default": false,
 						"description": "Control if classes not handled by Taiwind/WindiCSS should be placed first or last (true = first | false = last)",
 						"type": "boolean",
+						"scope": "window"
+					},
+					"aquilon.defaultSortOrder": {
+						"type": "array",
+						"default": [
+							"^container$",
+							"^decoration-([^\\s]+)$",
+							"^box-decoration-([^\\s]+)$",
+							"^block$",
+							"^inline([^\\s]+)?$",
+							"^inline$",
+							"^flex$",
+							"^table$",
+							"^inline-table$",
+							"^table([^\\s]+)?$",
+							"^flow-root$",
+							"^grid$",
+							"^inline-grid$",
+							"^contents$",
+							"^list-item$",
+							"^hidden$",
+							"^float([^\\s]+)?$",
+							"^clear([^\\s]+)?$",
+							"^isolat([^\\s]+)?$",
+							"^object([^\\s]+)?$",
+							"^overflow([^\\s]+)?$",
+							"^overscroll([^\\s]+)?$",
+							
+							"^static$",
+							"^fixed$",
+							"^absolute$",
+							"^relative$",
+							"^sticky$",
+							"^-?inset-([^\\s]+)?$",
+							"^-?top([^\\s]+)?$",
+							"^-?left([^\\s]+)?$",
+							"^-?right([^\\s]+)?$",
+							"^-?bottom([^\\s]+)?$",
+							"^visible$",
+							"^invisible$",
+							"^z-([^\\s]+)?$",
+							"^flex-([^\\s]+)?$",
+							"^order-([^\\s]+)?$",
+							"^grid-cols-([^\\s]+)?$",
+							"^col-auto$",
+							"^col-span-([^\\s]+)?$",
+							"^col-start-([^\\s]+)?$",
+							"^col-end-([^\\s]+)?$",
+							"^grid-rows-([^\\s]+)?$",
+							"^row-auto$",
+							"^row-span-([^\\s]+)?$",
+							"^row-start-([^\\s]+)?$",
+							"^row-end-([^\\s]+)?$",
+							"^grid-flow-([^\\s]+)?$",
+							"^auto-cols-([^\\s]+)?$",
+							"^auto-rows-([^\\s]+)?$",
+							"^gap-([^\\s]+)?$",
+							"^justify-([^\\s]+)?$",
+							"^content-([^\\s]+)?$",
+							"^items-([^\\s]+)?$",
+							"^self-([^\\s]+)?$",
+							"^place-content-([^\\s]+)?$",
+							"^place-items-([^\\s]+)?$",
+							"^place-self-([^\\s]+)?$",
+							"^-?p-([^\\s]+)?$",
+							"^-?px-([^\\s]+)?$",
+							"^-?py-([^\\s]+)?$",
+							"^-?pt-([^\\s]+)?$",
+							"^-?pt-px$",
+							"^-?pr-([^\\s]+)?$",
+							"^-?pb-([^\\s]+)?$",
+							"^-?pl-([^\\s]+)?$",
+							"^-?m-([^\\s]+)?$",
+							"^-?mx-([^\\s]+)?$",
+							"^-?my-([^\\s]+)?$",
+							"^-?mt-([^\\s]+)?$",
+							"^-?mr-([^\\s]+)?$",
+							"^-?mb-([^\\s]+)?$",
+							"^-?ml-([^\\s]+)?$",
+							"^-?space-x-([^\\s]+)?$",
+							"^-?space-y-([^\\s]+)?$",
+							"^w-([^\\s]+)?$",
+							"^min-w-([^\\s]+)?$",
+							"^max-w-([^\\s]+)?$",
+							"^h-([^\\s]+)?$",
+							"^min-h-([^\\s]+)?$",
+							"^max-h-([^\\s]+)?$",
+							"^font-sans$",
+							"^font-serif$",
+							"^font-mono$",
+							"^text-xs$",
+							"^text-sm$",
+							"^text-base$",
+							"^text-lg$",
+							"^text-xl$",
+							"^text-[2-9]xl$"
+						],
+						"description": "String array that indicates sorting order",
 						"scope": "window"
 					}
 				}
