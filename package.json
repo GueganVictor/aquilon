@@ -1,5 +1,7 @@
 {
 	"name": "aquilon",
+	"publisher": "vguegan",
+	"repository": "https://github.com/GueganVictor/aquilon",
 	"displayName": "aquilon",
 	"description": "A simple formatter to make your Tailwind/WindiCSS classes more readable",
 	"version": "0.0.1",
@@ -83,7 +85,6 @@
 							"^object([^\\s]+)?$",
 							"^overflow([^\\s]+)?$",
 							"^overscroll([^\\s]+)?$",
-							
 							"^static$",
 							"^fixed$",
 							"^absolute$",
